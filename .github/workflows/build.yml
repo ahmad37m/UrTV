@@ -44,8 +44,16 @@ jobs:
       - name: Build APK
         run: gradle -p android :launcher:assembleDebug
 
+      - name: Find generated APK
+        run: |
+          echo "Searching for APK files..."
+          find android -type f -name "*.apk" -print
+          test -n "$(find android -type f -name '*.apk' -print -quit)"
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: urtv-home-android7-test
-          path: android/launcher/build/outputs/apk/debug/*.apk
+          path: android/**/build/outputs/apk/**/*.apk
+          if-no-files-found: error
+          retention-days: 7
