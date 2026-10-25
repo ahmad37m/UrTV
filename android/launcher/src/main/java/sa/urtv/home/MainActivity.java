@@ -468,13 +468,14 @@ public class MainActivity extends Activity {
     // ---------------------------------------------------------------- apps
 
     private void buildApps() {
-        PackageManager pm = getPackageManager();
-        android.content.pm.ChangedPackages changed = pm.getChangedPackages(packageSeq);
-        if (changed != null) { packageSeq = changed.getSequenceNumber(); artCache.evictAll(); }   // an app may have a new icon
-        Map<String, App> byPkg = new HashMap<>();
-        Map<String, String> given = AppNames.given(this);   // names the owner's agent set (dock.sh name)
-        for (ResolveInfo ri : Dock.catalogue(this)) {
-            ActivityInfo ai = ri.activityInfo;
+    PackageManager pm = getPackageManager();
+    artCache.evictAll();
+
+    Map<String, App> byPkg = new HashMap<>();
+    Map<String, String> given = AppNames.given(this);
+    for (ResolveInfo ri : Dock.catalogue(this)) {
+        ActivityInfo ai = ri.activityInfo;
+        App a = new App();
             App a = new App();
             a.pkg = ai.packageName;
             a.label = AppNames.label(this, ri, given);
