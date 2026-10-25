@@ -1,4 +1,4 @@
-package sa.urtv.home;
+Package sa.urtv.home;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
@@ -113,7 +113,6 @@ public class MainActivity extends Activity {
     private ValueAnimator glowAnim;
     private int lastFocusedId = View.NO_ID;
     private boolean firstShow = true;
-    private int packageSeq;
     private PopupWindow inputsPopup;
     private HomeCard homeCard;
     private NowCard nowCard;   // «يُتلى الآن»: at the right end of the pills row while a surah or a station is on
@@ -468,14 +467,12 @@ public class MainActivity extends Activity {
     // ---------------------------------------------------------------- apps
 
     private void buildApps() {
-    PackageManager pm = getPackageManager();
-    artCache.evictAll();
-
-    Map<String, App> byPkg = new HashMap<>();
-    Map<String, String> given = AppNames.given(this);
-    for (ResolveInfo ri : Dock.catalogue(this)) {
-        ActivityInfo ai = ri.activityInfo;
-        App a = new App();
+        PackageManager pm = getPackageManager();
+        artCache.evictAll();
+        Map<String, App> byPkg = new HashMap<>();
+        Map<String, String> given = AppNames.given(this);   // names the owner's agent set (dock.sh name)
+        for (ResolveInfo ri : Dock.catalogue(this)) {
+            ActivityInfo ai = ri.activityInfo;
             App a = new App();
             a.pkg = ai.packageName;
             a.label = AppNames.label(this, ri, given);
